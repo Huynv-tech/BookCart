@@ -1,0 +1,23 @@
+<mat-toolbar color="primary" class="docs-navbar-header mat-elevation-z2">
+  <mat-toolbar-row>
+    <span class="spacer"></span>
+    <button mat-button *ngIf="!userData.isLoggedIn" [routerLinkActive]='["link-active"]'
+            [routerLink]='["/login"]'>
+      Login
+    </button>
+    <button mat-button *ngIf="userData.userTypeId==userType.admin || userData.userTypeId==userType.contributor" [routerLink]='["/admin/documents"]'>
+      Document
+    </button>
+    <button mat-button *ngIf="userData.userTypeId==userType.admin" [routerLink]='["/admin/categories"]'>
+      Categories
+    </button>
+    <ng-container *ngIf="userData.isLoggedIn">
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>account_circle</mat-icon> {{userData.username}} <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)=logout()>Logout</button>
+      </mat-menu>
+    </ng-container>
+  </mat-toolbar-row>
+</mat-toolbar>
